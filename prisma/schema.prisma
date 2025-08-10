@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  name          String
+  plan          String   @default("starter") // starter, professional, enterprise
+  apiKey        String   @unique
+  apiCallsUsed  Int      @default(0)
+  apiCallsLimit Int      @default(1000)
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@map("users")
+}
+
+model Company {
+  id          String   @id @default(cuid())
+  name        String
+  ticker      String?  @unique
+  sector      String?
+  industry    String?
+  website     String?
+  description String?
+  marketCap   Float?
+  employees   Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  esgData     ESGData[]
+  esgScores   ESGScore[]
+  
+  @@map("companies")
+}
+
+model ESGData {
+  id              String   @id @default(cuid())
+  companyId       String
+  metricType      String   // environmental, social, governance
+  metricName      String
+  value           String
+  numericValue    Float?
+  unit            String?
+  source          String
+  sourceUrl       String?
+  confidenceScore Float
+  year            Int?
+  dateCollected   DateTime @default(now())
+  
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  
+  @@index([companyId, metricType])
+  @@index([metricName])
+  @@map("esg_data")
+}
+
+model ESGScore {
+  id                String   @id @default(cuid())
+  companyId         String
+  overallScore      Float
+  environmentalScore Float
+  socialScore       Float
+  governanceScore   Float
+  methodology       String   @default("ai_v1")
+  calculatedAt      DateTime @default(now())
+  
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  
+  @@index([companyId])
+  @@map("esg_scores")
+}
+
+model DataSource {
+  id          String   @id @default(cuid())
+  name        String
+  type        String   // website, sec_filing, news, api
+  url         String
+  isActive    Boolean  @default(true)
+  lastScraped DateTime?
+  createdAt   DateTime @default(now())
+  
+  @@map("data_sources")
+}
+
+model ScrapingJob {
+  id          String   @id @default(cuid())
+  companyId   String?
+  sourceType  String
+  status      String   // pending, running, completed, failed
+  startedAt   DateTime?
+  completedAt DateTime?
+  errorMessage String?
+  itemsProcessed Int   @default(0)
+  createdAt   DateTime @default(now())
+  
+  @@map("scraping_jobs")
+}
+
+model ApiLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  endpoint   String
+  method     String
+  statusCode Int
+  responseTime Int
+  createdAt  DateTime @default(now())
+  
+  @@map("api_logs")
+}
