@@ -35,7 +35,7 @@ export async function GET() {
     return NextResponse.json(
       {
         error: "Failed to fetch companies",
-        message: error.message,
+        message: error instanceof Error ? error.message : "Unknown error",
         companies: [],
       },
       { status: 500 },
@@ -60,6 +60,12 @@ export async function POST(request: Request) {
     return NextResponse.json(newCompany, { status: 201 })
   } catch (error) {
     console.error("API: Failed to create company:", error)
-    return NextResponse.json({ error: "Failed to create company", message: error.message }, { status: 500 })
+    return NextResponse.json(
+      { 
+        error: "Failed to create company", 
+        message: error instanceof Error ? error.message : "Unknown error" 
+      }, 
+      { status: 500 }
+    )
   }
 }
