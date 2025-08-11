@@ -1,27 +1,16 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Calendar, User, ArrowRight } from 'lucide-react'
-import Link from "next/link"
+"use client";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
-export default function BlogPage() {
+export default function AddCompanyPage() {
   return (
-    <div className="container mx-auto px-6 py-12">
-      <div className="text-center mb-12">
-        <Badge className="mb-4 bg-purple-100 text-purple-800">📝 Blog</Badge>
-        <h1 className="text-4xl font-bold mb-4">ESG Insights & Analysis</h1>
-        <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-          Stay updated with the latest trends in ESG analytics.
-        </p>
+    <main className="p-8">
+      Add Company
+      <div className="mt-6">
+        <Button asChild>
+          <Link href="/dashboard">Return to Dashboard</Link>
+        </Button>
       </div>
-      <div className="text-center">
-        <p className="text-gray-600 mb-6">Blog posts coming soon!</p>
-        <Link href="/signup">
-          <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
-            Start Free Trial <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        </Link>
-      </div>
-    </div>
-  )
+    </main>
+  );
 }
