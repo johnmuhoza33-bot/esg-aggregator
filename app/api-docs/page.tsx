@@ -1,37 +1,72 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Code, Zap, ArrowRight } from 'lucide-react'
-import Link from "next/link"
+import Link from "next/link";
 
-export default function ApiDocsPage() {
+export default function HomePage() {
   return (
-    <div className="container mx-auto px-6 py-12">
-      <div className="text-center mb-12">
-        <Badge className="mb-4 bg-blue-100 text-blue-800">API Documentation</Badge>
-        <h1 className="text-4xl font-bold mb-4">ESG Data API</h1>
-        <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-          Access real-time ESG data for 10,000+ companies through our simple REST API.
+    <div className="bg-white">
+      {/* Hero Section */}
+      <section className="container mx-auto px-6 py-20 text-center">
+        <h1 className="text-5xl font-bold text-gray-900 mb-6">
+          ESG Analytics Made Simple
+        </h1>
+        <p className="text-lg text-gray-600 mb-8">
+          Access real-time ESG data, benchmark companies, and analyze
+          sustainability performance with ease.
         </p>
-      </div>
+        <div className="flex justify-center gap-4">
+          <Link
+            href="/get-started"
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+          >
+            Get Started
+          </Link>
+          <Link
+            href="/pricing"
+            className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition"
+          >
+            View Pricing
+          </Link>
+        </div>
+      </section>
 
-      <Card className="mb-12">
-        <CardHeader>
-          <CardTitle className="flex items-center">
-            <Zap className="h-5 w-5 mr-2" />
-            Quick Start
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="text-center">
-            <Link href="/dashboard">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
-                Start Free Trial <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
+      {/* Features Section */}
+      <section className="bg-gray-50 py-16">
+        <div className="container mx-auto px-6 grid md:grid-cols-3 gap-8 text-center">
+          <div>
+            <h3 className="text-xl font-semibold mb-2">📊 Real-Time Data</h3>
+            <p className="text-gray-600">
+              Instantly access updated ESG metrics for thousands of companies.
+            </p>
           </div>
-        </CardContent>
-      </Card>
+          <div>
+            <h3 className="text-xl font-semibold mb-2">📈 Benchmarking</h3>
+            <p className="text-gray-600">
+              Compare ESG performance between companies and industries.
+            </p>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold mb-2">🔍 Deep Analysis</h3>
+            <p className="text-gray-600">
+              Dive into detailed reports to evaluate sustainability efforts.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Call to Action */}
+      <section className="container mx-auto px-6 py-20 text-center">
+        <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          Start Tracking ESG Performance Today
+        </h2>
+        <p className="text-gray-600 mb-8">
+          Sign up for free and unlock the power of ESG analytics in minutes.
+        </p>
+        <Link
+          href="/get-started"
+          className="px-8 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+        >
+          Get Started Free
+        </Link>
+      </section>
     </div>
-  )
+  );
 }
