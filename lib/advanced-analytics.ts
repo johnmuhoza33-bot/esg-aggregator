@@ -1,57 +1,49 @@
-import { prisma } from "./database"
+// lib/advanced-analytics.ts
+// (adjust to your real logic as needed)
 
-export interface BenchmarkData {
-  companyId: string
-  companyName: string
-  sector: string
-  overallScore: number
-  environmentalScore: number
-  socialScore: number
-  governanceScore: number
-  percentileRank: number
-  industryAverage: number
+export interface BenchmarkRow {
+  companyId: string;
+  companyName: string;
+  sector: string;
+  overallScore: number;
+  environmentalScore: number;
+  socialScore: number;
+  governanceScore: number;
+  percentileRank: number;
+  industryAverage: number;
 }
 
 export class AdvancedESGAnalytics {
-  async generateIndustryBenchmarks(sector: string): Promise<BenchmarkData[]> {
-    // Mock data for deployment
-    return [
+  // Example method — replace with your real implementation
+  async generateIndustryBenchmarks(opts: { sector: string; limit?: number }): Promise<BenchmarkRow[]> {
+    const { sector, limit = 100 } = opts;
+
+    // TODO: replace mock data with DB/API calls
+    const demo: BenchmarkRow[] = [
       {
-        companyId: "1",
-        companyName: "Sample Company",
+        companyId: "AAPL",
+        companyName: "Apple Inc.",
         sector,
-        overallScore: 75,
-        environmentalScore: 80,
-        socialScore: 70,
-        governanceScore: 75,
-        percentileRank: 85,
-        industryAverage: 72,
+        overallScore: 76.4,
+        environmentalScore: 72.3,
+        socialScore: 78.2,
+        governanceScore: 74.5,
+        percentileRank: 92.1,
+        industryAverage: 63.7,
       },
-    ]
-  }
-
-  async analyzePortfolio(companyIds: string[]): Promise<{
-    portfolioScore: number
-    riskDistribution: { [key: string]: number }
-    recommendations: string[]
-  }> {
-    return {
-      portfolioScore: 75.5,
-      riskDistribution: {
-        "Low Risk": 3,
-        "Medium Risk": 5,
-        "High Risk": 2,
+      {
+        companyId: "MSFT",
+        companyName: "Microsoft",
+        sector,
+        overallScore: 81.2,
+        environmentalScore: 79.9,
+        socialScore: 82.1,
+        governanceScore: 80.0,
+        percentileRank: 95.4,
+        industryAverage: 63.7,
       },
-      recommendations: [
-        "Consider diversifying across sectors",
-        "Monitor regulatory changes",
-        "Engage with underperforming companies",
-      ],
-    }
-  }
+    ];
 
-  calculateIndustryAverage(scores: number[]): number {
-    if (scores.length === 0) return 0
-    return scores.reduce((sum, score) => sum + score, 0) / scores.length
+    return demo.slice(0, limit);
   }
 }
