@@ -1,63 +1,38 @@
-"use client"
-
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Mail, Phone, MapPin } from 'lucide-react'
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  })
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    alert("Thank you for your message!")
-  }
-
   return (
     <div className="container mx-auto px-6 py-12">
-      <h1 className="text-4xl font-bold mb-8 text-center">Contact Us</h1>
-      
+      <div className="text-center mb-12">
+        <Badge className="mb-4 bg-green-100 text-green-800">📞 Contact Us</Badge>
+        <h1 className="text-4xl font-bold mb-4">Get in Touch</h1>
+        <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+          Have questions about our ESG data platform? We're here to help.
+        </p>
+      </div>
+
       <Card className="max-w-2xl mx-auto">
         <CardHeader>
-          <CardTitle>Send us a Message</CardTitle>
+          <CardTitle>Contact Information</CardTitle>
+          <CardDescription>Multiple ways to reach our team</CardDescription>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+        <CardContent className="space-y-6">
+          <div className="flex items-start">
+            <Mail className="h-5 w-5 text-blue-600 mr-3 mt-1" />
             <div>
-              <Input
-                placeholder="Your Name"
-                value={formData.name}
-                onChange={(e) => setFormData({...formData, name: e.target.value})}
-                required
-              />
+              <p className="font-medium">Email</p>
+              <p className="text-gray-600">hello@esganalytics.com</p>
             </div>
+          </div>
+          <div className="flex items-start">
+            <Phone className="h-5 w-5 text-blue-600 mr-3 mt-1" />
             <div>
-              <Input
-                type="email"
-                placeholder="Your Email"
-                value={formData.email}
-                onChange={(e) => setFormData({...formData, email: e.target.value})}
-                required
-              />
+              <p className="font-medium">Phone</p>
+              <p className="text-gray-600">+1 (555) 123-4567</p>
             </div>
-            <div>
-              <textarea
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-                rows={5}
-                placeholder="Your Message"
-                value={formData.message}
-                onChange={(e) => setFormData({...formData, message: e.target.value})}
-                required
-              />
-            </div>
-            <Button type="submit" className="w-full">
-              Send Message
-            </Button>
-          </form>
+          </div>
         </CardContent>
       </Card>
     </div>
