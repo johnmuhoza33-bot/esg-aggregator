@@ -1,50 +1,38 @@
-import { ESGDataPipeline } from '../lib/esg-pipeline'
+import { ESGPipeline } from "../lib/esg-pipeline"
 
 async function testPipeline() {
-  const pipeline = new ESGDataPipeline()
-  
-  // Test with a few well-known companies with good ESG reporting
-  const testCompanies = [
-    {
-      name: "Microsoft Corporation",
-      website: "https://microsoft.com",
-      ticker: "MSFT"
-    },
-    {
-      name: "Apple Inc.",
-      website: "https://apple.com", 
-      ticker: "AAPL"
-    },
-    {
-      name: "Patagonia",
-      website: "https://patagonia.com",
-      ticker: null
-    }
-  ]
+  const pipeline = new ESGPipeline()
 
-  console.log('🧪 Testing ESG Data Pipeline...\n')
-  
-  // Test single company first
-  console.log('Testing single company processing...')
-  const result = await pipeline.processCompany(
-    testCompanies[0].name,
-    testCompanies[0].website,
-    testCompanies[0].ticker
-  )
-  
-  console.log('Test Result:', {
-    success: result.success,
-    metricsFound: result.metricsCount,
-    overallScore: result.score?.overall_score,
-    errors: result.errors
+  console.log("Testing ESG Pipeline...")
+
+  // Test company analysis
+  const companyAnalysis = await pipeline.analyzeCompany("AAPL", { name: "Apple Inc.", sector: "Technology" })
+  console.log("Company Analysis:", companyAnalysis)
+
+  // Test industry benchmarks
+  const benchmarks = await pipeline.generateIndustryBenchmarks({ sector: "Technology", limit: 5 })
+  console.log("Industry Benchmarks:", benchmarks)
+
+  // Test portfolio analysis
+  const portfolioAnalysis = await pipeline.analyzePortfolio(["AAPL", "MSFT", "GOOGL"])
+  console.log("Portfolio Analysis:", portfolioAnalysis)
+
+  // Test compliance report
+  const complianceReport = await pipeline.generateComplianceReport({
+    companies: ["AAPL"],
+    framework: "GRI",
+    period: "2024-Q1",
   })
+  console.log("Compliance Report:", complianceReport)
 
-  // If successful, test batch processing
-  if (result.success) {
-    console.log('\n🚀 Running batch test with all companies...')
-    await pipeline.processBatch(testCompanies)
-  }
+  console.log("Pipeline testing completed successfully!")
 }
 
-// Run the test
-testPipeline().catch(console.error)
+// Run the test if this file is executed directly
+if (require.main === module) {
+  testPipeline().catch(console.error)
+}
+
+export { testPipeline }
+
+
