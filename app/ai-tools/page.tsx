@@ -25,6 +25,91 @@ export default function AIToolsPage() {
       dataPoints: "10,000+ suppliers tracked",
     },
     {
+      id: "ehs-safety",
+      name: "EHS and Safety Tracking System",
+      icon: "🛡️",
+      description:
+        "Comprehensive Environmental, Health & Safety management with incident tracking, risk assessment, and regulatory compliance monitoring.",
+      features: [
+        "Real-time incident reporting and management",
+        "Safety metrics and KPI tracking",
+        "Environmental compliance monitoring",
+        "Risk assessment and mitigation planning",
+        "Audit trail and documentation management",
+      ],
+      status: "Active",
+      accuracy: "96%",
+      dataPoints: "1,000+ safety incidents tracked",
+    },
+    {
+      id: "process-safety",
+      name: "Process Safety Tools with Risk Assessment",
+      icon: "⚗️",
+      description:
+        "Advanced process safety management with HAZOP analysis, SIS management, and comprehensive risk assessment methodologies.",
+      features: [
+        "Process Hazard Analysis (HAZOP, FMEA, What-If)",
+        "Safety Instrumented Systems (SIS) management",
+        "Layer of Protection Analysis (LOPA)",
+        "Management of Change (MOC) procedures",
+        "Process safety metrics and KPIs",
+      ],
+      status: "Active",
+      accuracy: "98%",
+      dataPoints: "500+ process safety assessments",
+    },
+    {
+      id: "esg-strategy",
+      name: "AI-Powered ESG Strategy Consulting",
+      icon: "🎯",
+      description:
+        "Intelligent ESG strategy development with maturity assessments, roadmap planning, and AI-driven recommendations.",
+      features: [
+        "ESG maturity assessment and benchmarking",
+        "Strategic roadmap development",
+        "Materiality analysis and stakeholder mapping",
+        "Target setting and goal alignment",
+        "Investment prioritization and ROI analysis",
+      ],
+      status: "Active",
+      accuracy: "91%",
+      dataPoints: "200+ strategic assessments",
+    },
+    {
+      id: "customer-management",
+      name: "Global Customer Base Management",
+      icon: "🌍",
+      description:
+        "Enterprise CRM system designed for ESG service providers with global customer analytics and opportunity tracking.",
+      features: [
+        "Multi-region customer relationship management",
+        "Customer ESG journey tracking",
+        "Opportunity identification and scoring",
+        "Customer health and risk assessment",
+        "Global compliance and regulatory tracking",
+      ],
+      status: "Active",
+      accuracy: "93%",
+      dataPoints: "10,000+ global customers",
+    },
+    {
+      id: "audit-compliance",
+      name: "Enhanced Audit-Ready Compliance System",
+      icon: "📋",
+      description:
+        "Comprehensive audit preparation with evidence management, compliance controls testing, and regulatory change tracking.",
+      features: [
+        "Automated audit trail management",
+        "Evidence document handling and verification",
+        "Compliance controls testing and monitoring",
+        "Regulatory change tracking and impact analysis",
+        "Audit readiness assessment and scoring",
+      ],
+      status: "Active",
+      accuracy: "99%",
+      dataPoints: "15+ regulatory frameworks",
+    },
+    {
       id: "predictive-analytics",
       name: "Predictive ESG Analytics Engine",
       icon: "🔮",
@@ -40,23 +125,6 @@ export default function AIToolsPage() {
       status: "Active",
       accuracy: "87%",
       dataPoints: "5+ years of training data",
-    },
-    {
-      id: "compliance-reporting",
-      name: "Automated Compliance Reporting",
-      icon: "📋",
-      description:
-        "Automated generation of compliance reports for major ESG frameworks including EU CSRD, SEC Climate Rules, and TCFD.",
-      features: [
-        "Multi-framework support (CSRD, SEC, TCFD, GRI, SASB)",
-        "Gap analysis and remediation planning",
-        "Automated report generation",
-        "Compliance deadline tracking",
-        "Investment requirement calculations",
-      ],
-      status: "Active",
-      accuracy: "99%",
-      dataPoints: "15+ regulatory frameworks",
     },
     {
       id: "carbon-accounting",
@@ -120,11 +188,12 @@ export default function AIToolsPage() {
             🤖 AI-Powered • Enterprise-Grade • Real-Time
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-            Advanced AI Tools for ESG Analytics
+            Comprehensive AI-Powered ESG Enterprise Suite
           </h1>
           <p className="text-xl text-gray-600 mb-8 leading-relaxed max-w-3xl mx-auto">
-            Discover the six AI-powered tools that make ESGIntel the most advanced ESG analytics platform available.
-            Each tool leverages machine learning to deliver insights traditional providers can't match.
+            Discover the complete suite of AI-powered enterprise ESG tools that make ESGIntel the most comprehensive
+            platform available. From EHS safety tracking to strategic consulting, each tool leverages advanced AI to
+            deliver insights traditional providers can't match.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -203,40 +272,41 @@ export default function AIToolsPage() {
         {/* Competitive Advantage */}
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-16">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Why Our AI Tools Are Superior</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Complete Enterprise ESG Solution</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Traditional ESG providers rely on manual processes and quarterly updates. Our AI tools deliver real-time
-              insights with unprecedented accuracy.
+              Unlike traditional ESG providers that offer fragmented solutions, ESGIntel provides a unified platform
+              covering every aspect of enterprise ESG management with AI-powered automation and insights.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-4 gap-6">
             <div className="text-center">
               <div className="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">⚡</span>
+                <span className="text-2xl">🛡️</span>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Real-Time Processing</h3>
-              <p className="text-gray-600">
-                Our AI processes data continuously, updating scores and insights hourly instead of quarterly
-              </p>
+              <h3 className="text-lg font-semibold mb-2">Safety & Compliance</h3>
+              <p className="text-gray-600 text-sm">EHS tracking and audit-ready compliance systems</p>
             </div>
             <div className="text-center">
               <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">🎯</span>
+                <span className="text-2xl">⚗️</span>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Predictive Accuracy</h3>
-              <p className="text-gray-600">
-                Machine learning models trained on 5+ years of data achieve 87% prediction accuracy
-              </p>
+              <h3 className="text-lg font-semibold mb-2">Process Safety</h3>
+              <p className="text-gray-600 text-sm">Advanced HAZOP analysis and risk assessment tools</p>
             </div>
             <div className="text-center">
               <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">🔗</span>
+                <span className="text-2xl">🎯</span>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Enterprise Integration</h3>
-              <p className="text-gray-600">
-                Seamless integration with 50+ enterprise systems for automated data collection
-              </p>
+              <h3 className="text-lg font-semibold mb-2">Strategic Consulting</h3>
+              <p className="text-gray-600 text-sm">AI-powered ESG strategy development and planning</p>
+            </div>
+            <div className="text-center">
+              <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">🌍</span>
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Global Management</h3>
+              <p className="text-gray-600 text-sm">Enterprise customer and supply chain management</p>
             </div>
           </div>
         </div>

@@ -1,3 +1,6 @@
+// ESGIntel Database Schema
+// Comprehensive Prisma schema for ESG analytics platform
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -7,111 +10,201 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id            String   @id @default(cuid())
-  email         String   @unique
-  name          String
-  plan          String   @default("starter") // starter, professional, enterprise
-  apiKey        String   @unique
-  apiCallsUsed  Int      @default(0)
-  apiCallsLimit Int      @default(1000)
-  isActive      Boolean  @default(true)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  
-  @@map("users")
-}
-
+// Core Companies model
 model Company {
-  id          String   @id @default(cuid())
-  name        String
-  ticker      String?  @unique
-  sector      String?
-  industry    String?
-  website     String?
-  description String?
-  marketCap   Float?
-  employees   Int?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  
-  esgData     ESGData[]
-  esgScores   ESGScore[]
-  
+  id           String   @id @default(cuid())
+  name         String
+  ticker       String?  @db.VarChar(10)
+  sector       String?  @db.VarChar(100)
+  industry     String?  @db.VarChar(100)
+  marketCap    BigInt?  @map("market_cap")
+  headquarters String?  @db.VarChar(255)
+  website      String?  @db.VarChar(255)
+  description  String?  @db.Text
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  esgScores         EsgScore[]
+  carbonEmissions   CarbonEmission[]
+  supplyChainRisks  SupplyChainRisk[]
+  userWatchlists    UserWatchlist[]
+  safetyIncidents   SafetyIncident[]
+  complianceRecords ComplianceRecord[]
+  suppliers         Supplier[]
+
+  @@index([ticker])
+  @@index([sector])
   @@map("companies")
 }
 
-model ESGData {
-  id              String   @id @default(cuid())
-  companyId       String
-  metricType      String   // environmental, social, governance
-  metricName      String
-  value           String
-  numericValue    Float?
-  unit            String?
-  source          String
-  sourceUrl       String?
-  confidenceScore Float
-  year            Int?
-  dateCollected   DateTime @default(now())
-  
-  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  
-  @@index([companyId, metricType])
-  @@index([metricName])
-  @@map("esg_data")
-}
+// ESG Scores model
+model EsgScore {
+  id                 String    @id @default(cuid())
+  companyId          String    @map("company_id")
+  environmentalScore Float?    @map("environmental_score") @db.Decimal(5, 2)
+  socialScore        Float?    @map("social_score") @db.Decimal(5, 2)
+  governanceScore    Float?    @map("governance_score") @db.Decimal(5, 2)
+  overallScore       Float?    @map("overall_score") @db.Decimal(5, 2)
+  riskLevel          RiskLevel @map("risk_level")
+  scoreDate          DateTime  @map("score_date") @db.Date
+  dataSources        String[]  @map("data_sources")
+  createdAt          DateTime  @default(now()) @map("created_at")
 
-model ESGScore {
-  id                String   @id @default(cuid())
-  companyId         String
-  overallScore      Float
-  environmentalScore Float
-  socialScore       Float
-  governanceScore   Float
-  methodology       String   @default("ai_v1")
-  calculatedAt      DateTime @default(now())
-  
+  // Relations
   company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  
-  @@index([companyId])
+
+  @@index([companyId, scoreDate])
   @@map("esg_scores")
 }
 
-model DataSource {
-  id          String   @id @default(cuid())
-  name        String
-  type        String   // website, sec_filing, news, api
-  url         String
-  isActive    Boolean  @default(true)
-  lastScraped DateTime?
-  createdAt   DateTime @default(now())
-  
-  @@map("data_sources")
+// Carbon Emissions model
+model CarbonEmission {
+  id                 String  @id @default(cuid())
+  companyId          String  @map("company_id")
+  scope1Emissions    Float?  @map("scope_1_emissions") @db.Decimal(15, 2)
+  scope2Emissions    Float?  @map("scope_2_emissions") @db.Decimal(15, 2)
+  scope3Emissions    Float?  @map("scope_3_emissions") @db.Decimal(15, 2)
+  totalEmissions     Float?  @map("total_emissions") @db.Decimal(15, 2)
+  reportingYear      Int     @map("reporting_year")
+  verificationStatus String? @map("verification_status") @db.VarChar(50)
+  createdAt          DateTime @default(now()) @map("created_at")
+
+  // Relations
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@index([companyId, reportingYear])
+  @@map("carbon_emissions")
 }
 
-model ScrapingJob {
-  id          String   @id @default(cuid())
-  companyId   String?
-  sourceType  String
-  status      String   // pending, running, completed, failed
-  startedAt   DateTime?
-  completedAt DateTime?
-  errorMessage String?
-  itemsProcessed Int   @default(0)
-  createdAt   DateTime @default(now())
-  
-  @@map("scraping_jobs")
+// Supply Chain Risk model
+model SupplyChainRisk {
+  id                 String    @id @default(cuid())
+  companyId          String    @map("company_id")
+  supplierName       String    @map("supplier_name") @db.VarChar(255)
+  riskCategory       String    @map("risk_category") @db.VarChar(100)
+  riskLevel          RiskLevel @map("risk_level")
+  riskDescription    String?   @map("risk_description") @db.Text
+  mitigationActions  String?   @map("mitigation_actions") @db.Text
+  lastAssessment     DateTime? @map("last_assessment") @db.Date
+  createdAt          DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@map("supply_chain_risks")
 }
 
-model ApiLog {
-  id         String   @id @default(cuid())
-  userId     String?
-  endpoint   String
-  method     String
-  statusCode Int
-  responseTime Int
-  createdAt  DateTime @default(now())
-  
-  @@map("api_logs")
+// Users model for customer management
+model User {
+  id               String    @id @default(cuid())
+  email            String    @unique @db.VarChar(255)
+  name             String    @db.VarChar(255)
+  company          String?   @db.VarChar(255)
+  subscriptionTier String    @default("starter") @map("subscription_tier") @db.VarChar(50)
+  createdAt        DateTime  @default(now()) @map("created_at")
+  lastLogin        DateTime? @map("last_login")
+
+  // Relations
+  watchlists UserWatchlist[]
+
+  @@index([email])
+  @@map("users")
+}
+
+// User Watchlists model
+model UserWatchlist {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  companyId String   @map("company_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, companyId])
+  @@map("user_watchlists")
+}
+
+// Safety Incidents model for EHS tracking
+model SafetyIncident {
+  id          String        @id @default(cuid())
+  companyId   String        @map("company_id")
+  incidentId  String        @unique @map("incident_id")
+  title       String
+  description String        @db.Text
+  severity    IncidentLevel
+  status      String        @default("open")
+  reportedBy  String        @map("reported_by")
+  reportedAt  DateTime      @map("reported_at")
+  location    String?
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+
+  // Relations
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@map("safety_incidents")
+}
+
+// Compliance Records model
+model ComplianceRecord {
+  id             String           @id @default(cuid())
+  companyId      String           @map("company_id")
+  framework      String           @db.VarChar(100)
+  requirement    String           @db.Text
+  status         ComplianceStatus
+  evidence       String?          @db.Text
+  assessmentDate DateTime         @map("assessment_date") @db.Date
+  nextReview     DateTime?        @map("next_review") @db.Date
+  createdAt      DateTime         @default(now()) @map("created_at")
+
+  // Relations
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@map("compliance_records")
+}
+
+// Suppliers model for advanced supply chain management
+model Supplier {
+  id           String    @id @default(cuid())
+  companyId    String    @map("company_id")
+  name         String
+  tier         Int       @default(1)
+  country      String?
+  region       String?
+  esgScore     Float?    @map("esg_score") @db.Decimal(5, 2)
+  riskLevel    RiskLevel @map("risk_level")
+  lastAudit    DateTime? @map("last_audit") @db.Date
+  nextAudit    DateTime? @map("next_audit") @db.Date
+  certifications String[]
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@map("suppliers")
+}
+
+// Enums
+enum RiskLevel {
+  Low
+  Medium
+  High
+  Critical
+}
+
+enum IncidentLevel {
+  Minor
+  Moderate
+  Major
+  Critical
+}
+
+enum ComplianceStatus {
+  Compliant
+  NonCompliant
+  InProgress
+  NotAssessed
 }

@@ -417,6 +417,7 @@ export interface ConflictMineralsAssessment {
 }
 
 class AdvancedSupplyChainESG {
+  [x: string]: any
   // Enhanced Supplier Assessment
   async conductComprehensiveSupplierAssessment(supplierId: string): Promise<{
     supplier: AdvancedSupplier

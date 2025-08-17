@@ -48,6 +48,12 @@ export default function Navigation() {
               Platform
             </Link>
             <Link
+              href="/demo"
+              className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+            >
+              Demo
+            </Link>
+            <Link
               href="/dashboard"
               className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
             >
@@ -153,6 +159,16 @@ export default function Navigation() {
                 </span>
               </Link>
               <Link
+                href="/demo"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-gray-700 hover:text-blue-600 hover:bg-gray-50 block px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200 border border-transparent hover:border-gray-200"
+              >
+                <span className="flex items-center gap-3">
+                  <span className="text-blue-600">🚀</span>
+                  Demo
+                </span>
+              </Link>
+              <Link
                 href="/dashboard"
                 onClick={() => setIsMenuOpen(false)}
                 className="text-gray-700 hover:text-blue-600 hover:bg-gray-50 block px-4 py-3 rounded-lg text-base font-medium transition-colors duration-200 border border-transparent hover:border-gray-200"
@@ -211,3 +227,4 @@ export default function Navigation() {
     </nav>
   )
 }
+
