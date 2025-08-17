@@ -42,10 +42,10 @@ model Company {
 model EsgScore {
   id                 String    @id @default(cuid())
   companyId          String    @map("company_id")
-  environmentalScore Float?    @map("environmental_score") @db.Decimal(5, 2)
-  socialScore        Float?    @map("social_score") @db.Decimal(5, 2)
-  governanceScore    Float?    @map("governance_score") @db.Decimal(5, 2)
-  overallScore       Float?    @map("overall_score") @db.Decimal(5, 2)
+  environmentalScore Decimal?  @map("environmental_score") @db.Decimal(5, 2)
+  socialScore        Decimal?  @map("social_score") @db.Decimal(5, 2)
+  governanceScore    Decimal?  @map("governance_score") @db.Decimal(5, 2)
+  overallScore       Decimal?  @map("overall_score") @db.Decimal(5, 2)
   riskLevel          RiskLevel @map("risk_level")
   scoreDate          DateTime  @map("score_date") @db.Date
   dataSources        String[]  @map("data_sources")
@@ -62,10 +62,10 @@ model EsgScore {
 model CarbonEmission {
   id                 String  @id @default(cuid())
   companyId          String  @map("company_id")
-  scope1Emissions    Float?  @map("scope_1_emissions") @db.Decimal(15, 2)
-  scope2Emissions    Float?  @map("scope_2_emissions") @db.Decimal(15, 2)
-  scope3Emissions    Float?  @map("scope_3_emissions") @db.Decimal(15, 2)
-  totalEmissions     Float?  @map("total_emissions") @db.Decimal(15, 2)
+  scope1Emissions    Decimal? @map("scope_1_emissions") @db.Decimal(15, 2)
+  scope2Emissions    Decimal? @map("scope_2_emissions") @db.Decimal(15, 2)
+  scope3Emissions    Decimal? @map("scope_3_emissions") @db.Decimal(15, 2)
+  totalEmissions     Decimal? @map("total_emissions") @db.Decimal(15, 2)
   reportingYear      Int     @map("reporting_year")
   verificationStatus String? @map("verification_status") @db.VarChar(50)
   createdAt          DateTime @default(now()) @map("created_at")
@@ -174,7 +174,7 @@ model Supplier {
   tier         Int       @default(1)
   country      String?
   region       String?
-  esgScore     Float?    @map("esg_score") @db.Decimal(5, 2)
+  esgScore     Decimal?  @map("esg_score") @db.Decimal(5, 2)
   riskLevel    RiskLevel @map("risk_level")
   lastAudit    DateTime? @map("last_audit") @db.Date
   nextAudit    DateTime? @map("next_audit") @db.Date
@@ -208,3 +208,4 @@ enum ComplianceStatus {
   InProgress
   NotAssessed
 }
+
